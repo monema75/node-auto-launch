@@ -16,8 +16,9 @@ module.exports =
     #   :appName - {String}
     #   :appPath - {String}
     #   :isHiddenOnLaunch - {Boolean}
+    #   :extraArgs - {Sting}
     # Returns a Promise
-    enable: ({appName, appPath, isHiddenOnLaunch}) ->
+    enable: ({appName, appPath, isHiddenOnLaunch, extraArgs}) ->
         return new Promise (resolve, reject) ->
             pathToAutoLaunchedApp = appPath
             args = ''
@@ -31,6 +32,9 @@ module.exports =
                 args += ' --process-start-args "--hidden"' if isHiddenOnLaunch
             else
                 args += ' --hidden' if isHiddenOnLaunch
+
+            if extraArgs
+                args += ' ' + extraArgs
 
             regKey.set appName, Winreg.REG_SZ, "\"#{pathToAutoLaunchedApp}\"#{args}", (err) ->
                 return reject(err) if err?

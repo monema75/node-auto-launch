@@ -11,15 +11,17 @@ module.exports =
     #   :appName - {String}
     #   :appPath - {String}
     #   :isHiddenOnLaunch - {Boolean}
+    #   :extraArgs - {Sting}
     #   :mac - (Optional) {Object}
     #       :useLaunchAgent - (Optional) {Boolean}
     # Returns a Promise
-    enable: ({appName, appPath, isHiddenOnLaunch, mac}) ->
+    enable: ({appName, appPath, isHiddenOnLaunch, extraArgs, mac}) ->
 
         # Add the file if we're using a Launch Agent
         if mac.useLaunchAgent
             programArguments = [appPath]
             programArguments.push '--hidden' if isHiddenOnLaunch
+            programArguments.push extraArgs if extraArgs
             programArgumentsSection = programArguments
                 .map((argument) -> "    <string>#{argument}</string>")
                 .join('\n')
@@ -46,6 +48,7 @@ module.exports =
             }
 
         # Otherwise, use default method; use AppleScript to tell System Events to add a Login Item
+        # (note that in this case extraArgs can not be used)
 
         isHiddenValue = if isHiddenOnLaunch then 'true' else 'false'
         properties = "{path:\"#{appPath}\", hidden:#{isHiddenValue}, name:\"#{appName}\"}"
