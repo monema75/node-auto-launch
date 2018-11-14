@@ -70,20 +70,9 @@ module.exports = AutoLaunch = (function() {
   };
 
   AutoLaunch.prototype.fixOpts = function() {
-    var tempPath;
     this.opts.appPath = this.opts.appPath.replace(/\/$/, '');
     if (/darwin/.test(process.platform)) {
       this.opts.appPath = this.fixMacExecPath(this.opts.appPath, this.opts.mac);
-    }
-    if (this.opts.appPath.indexOf('/') !== -1) {
-      if (/linux/.test(process.platform)) {
-        tempPath = this.opts.appPath.split('/');
-        this.opts.appName = tempPath[tempPath.length - 1];
-      }
-    } else if (this.opts.appPath.indexOf('\\') !== -1) {
-      tempPath = this.opts.appPath.split('\\');
-      this.opts.appName = tempPath[tempPath.length - 1];
-      this.opts.appName = this.opts.appName.substr(0, this.opts.appName.length - '.exe'.length);
     }
     if (/darwin/.test(process.platform)) {
       if (this.opts.appName.indexOf('.app', this.opts.appName.length - '.app'.length) !== -1) {

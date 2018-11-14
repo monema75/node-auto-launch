@@ -84,15 +84,6 @@ module.exports = class AutoLaunch
         if /darwin/.test process.platform
             @opts.appPath = @fixMacExecPath(@opts.appPath, @opts.mac)
 
-        if @opts.appPath.indexOf('/') isnt -1
-            if /linux/.test process.platform
-                tempPath = @opts.appPath.split '/'
-                @opts.appName = tempPath[tempPath.length - 1]
-        else if @opts.appPath.indexOf('\\') isnt -1
-            tempPath = @opts.appPath.split '\\'
-            @opts.appName = tempPath[tempPath.length - 1]
-            @opts.appName = @opts.appName.substr(0, @opts.appName.length - '.exe'.length)
-
         if /darwin/.test process.platform
             # Remove ".app" from the appName if it exists
             if @opts.appName.indexOf('.app', @opts.appName.length - '.app'.length) isnt -1
