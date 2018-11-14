@@ -10,16 +10,19 @@ fileBasedUtilities = require('./fileBasedUtilities');
 module.exports = {
 
   /* Public */
-  enable: function(arg) {
-    var appName, appPath, data, extraArgs, isHiddenOnLaunch, isHiddenValue, mac, programArguments, programArgumentsSection, properties;
-    appName = arg.appName, appPath = arg.appPath, isHiddenOnLaunch = arg.isHiddenOnLaunch, extraArgs = arg.extraArgs, mac = arg.mac;
+  enable: function(arg1) {
+    var appName, appPath, arg, data, extraArgs, i, isHiddenOnLaunch, isHiddenValue, len, mac, programArguments, programArgumentsSection, properties;
+    appName = arg1.appName, appPath = arg1.appPath, isHiddenOnLaunch = arg1.isHiddenOnLaunch, extraArgs = arg1.extraArgs, mac = arg1.mac;
     if (mac.useLaunchAgent) {
       programArguments = [appPath];
       if (isHiddenOnLaunch) {
         programArguments.push('--hidden');
       }
-      if (extraArgs) {
-        programArguments.push(extraArgs);
+      if (extraArgs.length) {
+        for (i = 0, len = extraArgs.length; i < len; i++) {
+          arg = extraArgs[i];
+          programArguments.push(arg);
+        }
       }
       programArgumentsSection = programArguments.map(function(argument) {
         return "    <string>" + argument + "</string>";

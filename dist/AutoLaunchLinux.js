@@ -11,7 +11,7 @@ module.exports = {
     var appName, appPath, args, data, extraArgs, hiddenArg, isHiddenOnLaunch;
     appName = arg.appName, appPath = arg.appPath, isHiddenOnLaunch = arg.isHiddenOnLaunch, extraArgs = arg.extraArgs;
     hiddenArg = isHiddenOnLaunch ? ' --hidden' : '';
-    args = extraArgs != null ? hiddenArg + ' ' + extraArgs : hiddenArg;
+    args = extraArgs != null ? hiddenArg + ' ' + extraArgs.join(' ') : hiddenArg;
     data = "[Desktop Entry]\nType=Application\nVersion=1.0\nName=" + appName + "\nComment=" + appName + "startup script\nExec=" + appPath + hiddenArg + "\nComment=" + appName + " startup script\nExec=" + appPath + args + "\nStartupNotify=false\nTerminal=false";
     return fileBasedUtilities.createFile({
       data: data,

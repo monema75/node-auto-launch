@@ -19,7 +19,7 @@ module.exports = AutoLaunch = (function() {
     this.opts = {
       appName: name,
       isHiddenOnLaunch: isHidden != null ? isHidden : false,
-      extraArgs: extraArgs != null ? extraArgs : '',
+      extraArgs: extraArgs != null ? extraArgs : [],
       mac: mac != null ? mac : {}
     };
     versions = typeof process !== "undefined" && process !== null ? process.versions : void 0;
