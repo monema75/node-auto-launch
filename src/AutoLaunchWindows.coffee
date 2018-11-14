@@ -34,7 +34,7 @@ module.exports =
                 args += ' --hidden' if isHiddenOnLaunch
 
             if extraArgs
-                args += ' /c ' + extraArgs.join(' ')
+                args += ' ' + extraArgs.join(' ')
 
             regKey.set appName, Winreg.REG_SZ, "\"#{pathToAutoLaunchedApp}\"#{args}", (err) ->
                 return reject(err) if err?
