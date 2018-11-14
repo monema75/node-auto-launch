@@ -13,7 +13,7 @@ module.exports =
     # Returns a Promise
     enable: ({appName, appPath, isHiddenOnLaunch, extraArgs}) ->
         hiddenArg = if isHiddenOnLaunch then ' --hidden' else ''
-        args = if extraArgs? then (hiddenArg + ' ' + extraArgs) else hiddenArg
+        args = if extraArgs? then (hiddenArg + ' ' + extraArgs.join(' ')) else hiddenArg
 
         data = """[Desktop Entry]
                 Type=Application

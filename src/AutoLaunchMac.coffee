@@ -11,7 +11,7 @@ module.exports =
     #   :appName - {String}
     #   :appPath - {String}
     #   :isHiddenOnLaunch - {Boolean}
-    #   :extraArgs - {Sting}
+    #   :extraArgs - {Array}
     #   :mac - (Optional) {Object}
     #       :useLaunchAgent - (Optional) {Boolean}
     # Returns a Promise
@@ -21,7 +21,10 @@ module.exports =
         if mac.useLaunchAgent
             programArguments = [appPath]
             programArguments.push '--hidden' if isHiddenOnLaunch
-            programArguments.push extraArgs if extraArgs
+            # programArguments.push extraArgs if extraArgs
+            if extraArgs.length
+                for arg in extraArgs
+                    programArguments.push arg
             programArgumentsSection = programArguments
                 .map((argument) -> "    <string>#{argument}</string>")
                 .join('\n')

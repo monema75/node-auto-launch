@@ -12,14 +12,14 @@ module.exports = class AutoLaunch
     #           to add Login Item
     #   :name - {String}
     #   :path - (Optional) {String}
-    #   :extraArgs - (Optional) {String}
+    #   :extraArgs - (Optional) {Array}
     constructor: ({name, isHidden, mac, extraArgs, path}) ->
         throw new Error 'You must specify a name' unless name?
 
         @opts =
             appName: name
             isHiddenOnLaunch: if isHidden? then isHidden else false
-            extraArgs: if extraArgs? then extraArgs else ''
+            extraArgs: if extraArgs? then extraArgs else []
             mac: mac ? {}
 
         versions = process?.versions
