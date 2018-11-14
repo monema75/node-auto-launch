@@ -85,8 +85,9 @@ module.exports = class AutoLaunch
             @opts.appPath = @fixMacExecPath(@opts.appPath, @opts.mac)
 
         if @opts.appPath.indexOf('/') isnt -1
-            tempPath = @opts.appPath.split '/'
-            @opts.appName = tempPath[tempPath.length - 1]
+            if /linux/.test process.platform
+                tempPath = @opts.appPath.split '/'
+                @opts.appName = tempPath[tempPath.length - 1]
         else if @opts.appPath.indexOf('\\') isnt -1
             tempPath = @opts.appPath.split '\\'
             @opts.appName = tempPath[tempPath.length - 1]

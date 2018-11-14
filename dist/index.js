@@ -76,8 +76,10 @@ module.exports = AutoLaunch = (function() {
       this.opts.appPath = this.fixMacExecPath(this.opts.appPath, this.opts.mac);
     }
     if (this.opts.appPath.indexOf('/') !== -1) {
-      tempPath = this.opts.appPath.split('/');
-      this.opts.appName = tempPath[tempPath.length - 1];
+      if (/darwin/.test(process.platform)) {
+        tempPath = this.opts.appPath.split('/');
+        this.opts.appName = tempPath[tempPath.length - 1];
+      }
     } else if (this.opts.appPath.indexOf('\\') !== -1) {
       tempPath = this.opts.appPath.split('\\');
       this.opts.appName = tempPath[tempPath.length - 1];
