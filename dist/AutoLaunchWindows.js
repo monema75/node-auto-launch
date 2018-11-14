@@ -34,7 +34,7 @@ module.exports = {
         }
       }
       if (extraArgs) {
-        args += ' ' + extraArgs;
+        args += ' /c ' + extraArgs.join(' ');
       }
       return regKey.set(appName, Winreg.REG_SZ, "\"" + pathToAutoLaunchedApp + "\"" + args, function(err) {
         if (err != null) {
